@@ -1,0 +1,18 @@
+[
+  {
+    "id": "kyc-001",
+    "query": "Who are the beneficial owners of Shell Corp?",
+    "expected": {"ubos": ["john doe"], "sanctioned": true},
+    "agent_type": "kyc",
+    "tags": ["ubo", "sanctions"],
+    "notes": "John Doe owns 51% of Shell Corp. Shell Corp is on OFAC SDN."
+  },
+  {
+    "id": "kyc-002",
+    "query": "Who are the beneficial owners of Acme Corp?",
+    "expected": {"ubos": ["john doe"], "chain_length": 2},
+    "agent_type": "kyc",
+    "tags": ["ubo", "multi-hop"],
+    "notes": "John Doe → Shell Corp → Acme Corp. 2-hop chain."
+  }
+]

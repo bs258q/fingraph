@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fraud-001",
+    "query": "Does Shell Corp show fraud indicators?",
+    "expected": {"fraud": true, "pattern": "shell_company"},
+    "agent_type": "fraud",
+    "tags": ["shell", "escalate"],
+    "notes": "Shell Corp: sanctioned, circular ownership, low filings."
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sanc-001",
+    "query": "Screen these entities: Shell Corp, Acme Corp",
+    "expected": {"sanctioned": true, "hit_entities": ["Shell Corp"]},
+    "agent_type": "sanctions",
+    "tags": ["ofac", "bulk"],
+    "notes": "Shell Corp is on OFAC SDN. Acme Corp is clean."
+  },
+  {
+    "id": "sanc-002",
+    "query": "Is John Doe on any sanctions list?",
+    "expected": {"sanctioned": false},
+    "agent_type": "sanctions",
+    "tags": ["person", "clear"],
+    "notes": "John Doe is not directly sanctioned."
+  }
+]
