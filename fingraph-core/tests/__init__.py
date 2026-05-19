@@ -1,1 +1,0 @@
-"""Tests for fingraph-core."""
