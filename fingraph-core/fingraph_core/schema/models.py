@@ -1,6 +1,6 @@
 """Graph node and edge models for Neo4j."""
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, model_validator
+from typing import Optional, Self
 import re
 
 
@@ -10,10 +10,12 @@ class GraphNode(BaseModel):
     label: str = ""
     source: str = ""
 
-    def model_post_init(self, _):
+    @model_validator(mode='after')
+    def set_label(self) -> Self:
         """Set label to class name if not provided."""
         if not self.label:
-            self.label = self.__class__.__name__
+            object.__setattr__(self, 'label', self.__class__.__name__)
+        return self
 
 
 class Company(GraphNode):
@@ -62,13 +64,16 @@ class GraphEdge(BaseModel):
     edge_type: str = ""
     source: str = ""
 
-    def model_post_init(self, _):
+    @model_validator(mode='after')
+    def set_edge_type(self) -> Self:
         """Set edge_type to class name in UPPER_SNAKE_CASE if not provided."""
         if not self.edge_type:
             # Convert camelCase to UPPER_SNAKE_CASE
             class_name = self.__class__.__name__
             snake_case = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', class_name)
-            self.edge_type = re.sub('([a-z0-9])([A-Z])', r'\1_\2', snake_case).upper()
+            edge_type = re.sub('([a-z0-9])([A-Z])', r'\1_\2', snake_case).upper()
+            object.__setattr__(self, 'edge_type', edge_type)
+        return self
 
 
 class OwnsStake(GraphEdge):
