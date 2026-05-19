@@ -1,0 +1,11 @@
+pyproject.toml
+fingraph_adapter/__init__.py
+fingraph_adapter/edges.py
+fingraph_adapter/loader.py
+fingraph_adapter.egg-info/PKG-INFO
+fingraph_adapter.egg-info/SOURCES.txt
+fingraph_adapter.egg-info/dependency_links.txt
+fingraph_adapter.egg-info/requires.txt
+fingraph_adapter.egg-info/top_level.txt
+fingraph_adapter/tests/__init__.py
+fingraph_adapter/tests/test_loader.py
