@@ -48,17 +48,19 @@ driver.close()
 
 ## Agents
 
-| Agent | Question |
-|---|---|
-| `KYCAgent` | Who are the UBOs? Any sanctions in chain? |
-| `SanctionsScreeningAgent` | Is this entity on a sanctions list? |
-| `FraudSignalAgent` | Shell company / fraud indicators? |
-| `AMLTypologyAgent` | Matches laundering typologies? |
-| `CounterpartyRiskAgent` | Full exposure to this entity? |
-| `PEPDetectionAgent` | Is this person politically exposed? |
-| `AdverseMediaAgent` | Negative news on this entity? |
-| `NetworkContagionAgent` | If this entity fails, who's exposed? |
-| `RegulatoryFilingAgent` | Disclosure gaps / hidden connections? |
+| Agent | Question | Max Tool Calls |
+|---|---|---|
+| `KYCAgent` | Who are the UBOs? Any sanctions in chain? | 6 |
+| `SanctionsScreeningAgent` | Is this entity on a sanctions list? | 2 per entity |
+| `FraudSignalAgent` | Shell company / fraud indicators? | 4 |
+| `AMLTypologyAgent` | Matches laundering typologies? | 3 |
+| `CounterpartyRiskAgent` | Full exposure to this entity? | 7 |
+| `PEPDetectionAgent` | Is this person politically exposed? | 3 |
+| `AdverseMediaAgent` | Negative news on this entity? | 4 |
+| `NetworkContagionAgent` | If this entity fails, who's exposed? | 6 |
+| `RegulatoryFilingAgent` | Disclosure gaps / hidden connections? | 3 |
+
+Each agent has explicit tool call caps in its system prompt to prevent redundant graph lookups and keep latency under 45 seconds. The eval harness enforces this — latency scorer fails any run exceeding the threshold.
 
 ## Eval Harness
 
