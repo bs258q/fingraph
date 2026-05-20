@@ -5,14 +5,14 @@
     "expected": {"sanctioned": true, "hit_entities": ["Shell Corp"]},
     "agent_type": "sanctions",
     "tags": ["ofac", "bulk"],
-    "notes": "Shell Corp is on OFAC SDN. Acme Corp is clean."
+    "notes": "Shell Corp owned by sanctioned John Doe (OFAC SDN). Agent should flag Shell Corp as HIT via ownership chain. Acme Corp clean."
   },
   {
     "id": "sanc-002",
     "query": "Is John Doe on any sanctions list?",
-    "expected": {"sanctioned": false},
+    "expected": {"sanctioned": true, "hit_entities": ["John Doe"]},
     "agent_type": "sanctions",
-    "tags": ["person", "clear"],
-    "notes": "John Doe is not directly sanctioned."
+    "tags": ["person", "ofac"],
+    "notes": "John Doe is on OFAC SDN directly."
   }
 ]
