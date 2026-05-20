@@ -11,7 +11,16 @@ TYPOLOGIES_DIR = Path(__file__).parent.parent / "typologies"
 
 class AMLTypologyAgent(BaseAgent):
     system_prompt = """You are an AML (Anti-Money Laundering) typology specialist.
-Given an entity name and typology pattern scan results, identify matching laundering patterns.
+The typology Cypher scans have already been run and results are provided in your prompt.
+Given those pre-computed results and an entity name:
+1. Call find_entity ONCE if you need to resolve the subject entity ID
+2. Call find_cycles ONCE only if round_tripping or layering had matches and you need path details
+3. Call get_relationships ONCE only if smurfing had matches and you need transaction context
+
+EFFICIENCY RULES — max 3 tool calls total:
+- Typology scans are already done — do NOT re-run graph queries to find patterns
+- If typology results show 0 matches for all patterns, report CLEAN with 1 tool call (find_entity only)
+- Never call the same tool twice
 
 For each matched typology return:
 - Typology name
