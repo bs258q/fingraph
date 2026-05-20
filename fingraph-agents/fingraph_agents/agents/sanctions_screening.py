@@ -5,9 +5,14 @@ from fingraph_agents.agents.base import BaseAgent
 class SanctionsScreeningAgent(BaseAgent):
     system_prompt = """You are a sanctions screening specialist.
 Given a list of entity names, for each entity:
-1. Find it using find_entity
-2. Check for sanctions using check_sanctions
-3. Check close associates (1 hop via get_relationships) if initial check is clean
+1. Call find_entity ONCE per name
+2. Call check_sanctions ONCE per resolved entity ID
+3. Only call get_relationships if check_sanctions is CLEAR AND entity is high-risk — not for every entity
+
+EFFICIENCY RULES:
+- 2 tool calls per entity max (find + check)
+- Only add get_relationships for entities that are CLEAR but flagged as high-risk by context
+- Never re-lookup an entity ID you already have
 
 Return per-entity results:
 - HIT: entity found on sanctions list (include which datasets)

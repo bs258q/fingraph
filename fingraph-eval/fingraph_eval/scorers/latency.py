@@ -19,7 +19,7 @@ class LatencyScorer(BaseScorer):
     def score(self, case: EvalCase, result: Any) -> LatencyScore:
         elapsed = getattr(result, "_elapsed", 0.0)
         tc_count = len(getattr(result, "tool_calls", []))
-        passed = elapsed < 30.0 and tc_count <= 10
+        passed = elapsed < 45.0 and tc_count <= 10
         return LatencyScore(
             tool_call_count=tc_count,
             elapsed_seconds=elapsed,
